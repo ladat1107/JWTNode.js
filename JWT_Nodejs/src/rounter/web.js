@@ -1,11 +1,10 @@
 import express from 'express';
+import userController from '../controllers/userController';
 require('dotenv').config();
 let router = express.Router();
 let initWebRount = (app) => {
-    router.get('/', (req, res) => {
-        return res.send("hello world")
-    })
+    router.post("/registerUser", userController.handleRegisterUser)
 
-    return app.use("/", router);
+    return app.use("/api/", router);
 }
 export default initWebRount;
