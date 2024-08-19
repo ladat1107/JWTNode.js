@@ -4,7 +4,7 @@ import configViewEngine from './config/configViewEngine';
 import initWebRount from './rounter/web';
 import connectDB from './config/connectDB';
 import cors from 'cors';
-require('dotenv').config();
+
 
 const app = express();
 
@@ -22,7 +22,7 @@ configViewEngine(app);
 // Initialize web routes
 
 initWebRount(app);
-connectDB();
+// connectDB();
 let PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {

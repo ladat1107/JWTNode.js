@@ -1,8 +1,10 @@
 import db from "../models/index";
 import bcrypt from "bcrypt";
 import { Op, where } from 'sequelize';
+import JWTService from "../services/JWTService";
 const salt = bcrypt.genSaltSync(10);
-
+import { createToken, verifyToken } from "../Middleware/JWTAction"
+require('dotenv').config();
 let hashPasswordUser = async (password) => {
     try {
         let hashPassword = await bcrypt.hashSync(password, salt);
@@ -105,10 +107,19 @@ const loginUser = async (data) => {
             let comparePassword = await bcrypt.compareSync(data.passwordLogin, user.password);
             if (comparePassword) {
                 delete user["password"];
+                let groupRole = await JWTService.getGroupWithRole(user);
+                let data = {
+                    email: user.email,
+                    groupRole
+                }
+                let token = createToken(data);
                 return {
                     EC: 0,
                     EM: "Đăng nhập thành công",
-                    DT: user
+                    DT: {
+                        token: token,
+                        groupRole: groupRole
+                    }
                 }
             }
         }
@@ -129,6 +140,9 @@ const loginUser = async (data) => {
 const getFunction = async (page, limit) => {
     try {
         let { count, rows } = await db.User.findAndCountAll({
+            order: [
+                ['id', 'DESC']
+            ],
             attributes: {
                 exclude: ["password"]
             },
@@ -216,7 +230,7 @@ const createFunction = async (data) => {
             phoneNumber: data.phoneNumber,
             address: data.address,
             groupId: data.groupId,
-            gender: data.gender,
+            gender: +data.gender,
         })
         if (user) {
             return {
@@ -276,7 +290,7 @@ const updateFunction = async (data) => {
                     phoneNumber: data.phoneNumber,
                     address: data.address,
                     groupId: data.groupId,
-                    gender: data.gender,
+                    gender: +data.gender,
                 }, {
                     where: { id: user.id }
                 })

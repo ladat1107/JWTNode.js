@@ -16,7 +16,7 @@ const handleRegisterUser = async (req, res) => {
             DT: response.DT
         })
     } catch (error) {
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -42,7 +42,7 @@ const handleLogin = async (req, res) => {
         })
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -63,7 +63,7 @@ const getFunction = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -74,10 +74,10 @@ const createFunction = async (req, res) => {
     try {
         let data = req.body;
         if (data) {
-            let arr = ["userName", "password", "email", "phoneNumber", "gender", "groupId", "address"];
+            let arr = ["userName", "password", "email", "phoneNumber", "gender", "groupId"];
             for (let i = 0; i < arr.length; i++) {
                 if (!data[arr[i]]) {
-                    return res.status(400).json({
+                    return res.status(200).json({
                         EC: 400,
                         EM: `Dữ liệu ${arr[i]} không được để trống`,
                         DT: ""
@@ -91,7 +91,7 @@ const createFunction = async (req, res) => {
                 DT: response.DT
             })
         } else {
-            return res.status(400).json({
+            return res.status(200).json({
                 EC: 400,
                 EM: "Dữ liệu không được để trống",
                 DT: ""
@@ -99,7 +99,7 @@ const createFunction = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -110,10 +110,10 @@ const updateFunction = async (req, res) => {
     try {
         let data = req.body;
         if (data) {
-            let arr = ["id", "userName", "password", "email", "phoneNumber", "gender", "groupId", "address"];
+            let arr = ["id", "userName", "email", "phoneNumber", "gender", "groupId"];
             for (let i = 0; i < arr.length; i++) {
                 if (!data[arr[i]]) {
-                    return res.status(400).json({
+                    return res.status(200).json({
                         EC: 400,
                         EM: `Dữ liệu ${arr[i]} không được để trống`,
                         DT: ""
@@ -127,7 +127,7 @@ const updateFunction = async (req, res) => {
                 DT: response.DT
             })
         } else {
-            return res.status(400).json({
+            return res.status(200).json({
                 EC: 400,
                 EM: "Dữ liệu không được để trống",
                 DT: ""
@@ -135,7 +135,7 @@ const updateFunction = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -153,7 +153,7 @@ const deleteFunction = async (req, res) => {
                 DT: response.DT
             })
         } else {
-            return res.status(400).json({
+            return res.status(200).json({
                 EC: 400,
                 EM: "Input is empty",
                 DT: ""
@@ -161,7 +161,7 @@ const deleteFunction = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""
@@ -179,7 +179,7 @@ const getFunctionById = async (req, res) => {
                 DT: response.DT
             })
         } else {
-            return res.status(400).json({
+            return res.status(200).json({
                 EC: 400,
                 EM: "Không tìm thấy người dùng",
                 DT: ""
@@ -187,7 +187,7 @@ const getFunctionById = async (req, res) => {
         }
     } catch (error) {
         console.log(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: "Error from server",
             DT: ""

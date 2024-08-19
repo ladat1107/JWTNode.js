@@ -10,7 +10,7 @@ const getFunction = async (req, res) => {
         });
     } catch (error) {
         console.error(error);
-        return res.status(500).json({
+        return res.status(200).json({
             EC: 500,
             EM: 'Error from server',
             DT: '',
