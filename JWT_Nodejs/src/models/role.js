@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Role.belongsToMany(models.Group, {
         through: models.GroupRole,
-        //uniqueKey: 'roleId',
+        foreignKey: 'roleId',
         as: "roleData",
       });
 

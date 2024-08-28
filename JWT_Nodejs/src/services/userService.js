@@ -2,6 +2,7 @@ import db from "../models/index";
 import bcrypt from "bcrypt";
 import { Op, where } from 'sequelize';
 import JWTService from "../services/JWTService";
+
 const salt = bcrypt.genSaltSync(10);
 import { createToken, verifyToken } from "../Middleware/JWTAction"
 require('dotenv').config();
@@ -110,15 +111,18 @@ const loginUser = async (data) => {
                 let groupRole = await JWTService.getGroupWithRole(user);
                 let data = {
                     email: user.email,
-                    groupRole
+                    groupRole,
+                    userName: user.userName,
                 }
                 let token = createToken(data);
                 return {
                     EC: 0,
                     EM: "Đăng nhập thành công",
                     DT: {
+                        email: user.email,
+                        userName: user.userName,
                         token: token,
-                        groupRole: groupRole
+                        groupRole
                     }
                 }
             }

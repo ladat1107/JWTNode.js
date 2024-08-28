@@ -4,6 +4,7 @@ import configViewEngine from './config/configViewEngine';
 import initWebRount from './rounter/web';
 import connectDB from './config/connectDB';
 import cors from 'cors';
+import cookieParser from 'cookie-parser';
 
 
 const app = express();
@@ -14,6 +15,10 @@ app.use(bodyParser.urlencoded({
     limit: '50mb',
     extended: true
 }));
+
+// Initialize cookie parser
+
+app.use(cookieParser());
 
 // Configure view engine
 
